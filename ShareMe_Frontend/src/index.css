@@ -1,4 +1,29 @@
-:root {
+@import "tailwindcss";
+
+@theme {
+  --color-blackOverlay: rgba(0, 0, 0, 0.7);
+}
+
+/* Custom keyframes for sidebar animations (Tailwind v4-friendly) */
+@keyframes slide-in {
+  0% { transform: translateX(-200px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes slide-fwd {
+  0% { transform: translateZ(0); }
+  100% { transform: translateZ(160px); }
+}
+
+body{
+  font-family: 'Lato', sans-serif;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -65,4 +90,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
