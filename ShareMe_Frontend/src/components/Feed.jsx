@@ -11,6 +11,7 @@ const Feed = () => {
   const [loading ,setLoading] = useState(false)
   const {categoryId} = useParams()
   const [pins, setPins] = useState(null)
+  const [pinNotFound, setPinNotFound] = useState(false)
 
   useEffect(()=>{
     setLoading(true)
@@ -19,28 +20,36 @@ const Feed = () => {
     if(categoryId){
       //fetch pins based on category
       const query = searchQuery(categoryId)
+      console .log("Category ID:", categoryId)
       client.fetch(query)
       .then((data)=>{
         setPins(data)
+        console.log("Fetched pins by category:", data)
         setLoading(false)
       })
       .catch((error)=>{
-        console.error("Error fetching pins by category:", error)
+        console.log("Error fetching pins by category:", error)
         setLoading(false)
       })
     } else{
       //fetch all pins
       client.fetch(feedQuery)
+      
       .then((data)=>{
         setPins(data)
         setLoading(false)
       })
+      console.log("Fetched all pins")
     }
 
   },[categoryId])
 
   if(loading){
     return <Spinner message="We are adding new ideas to your feed!"/>
+  }
+
+  if(!pins?.length){
+    return <div className='flex justify-center font-bold items-center w-full text-xl mt-2'>No Pins Found!</div>
   }
   return (
     <div>
